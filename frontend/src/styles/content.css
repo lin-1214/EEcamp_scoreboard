@@ -1,0 +1,57 @@
+.ContentWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* padding: 1rem 2rem; */
+    height: 70vh;
+    width: 100vw;
+    background-image: url("../assets/background.PNG");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.ContentMain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 50vh;
+    width: 60vw;
+    border: solid 10px gray;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.Hint {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #000;
+    animation: scale infinite 2s;
+}
+
+.Card {
+    background-image: url("../assets/card.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 364px;
+    height: 216px;
+}
+
+.Result {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #000;
+}
+
+@keyframes scale {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
