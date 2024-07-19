@@ -11,7 +11,7 @@ declare global {
     }
 }
 
-const connection = setupSerialConnection({ requestAccessOnPageLoad: true });
+const connection = setupSerialConnection({ requestAccessOnPageLoad: true});
 
 const Content = () => {
     const { team, money, delta, setTeam, setMoney, setDelta } = useData();
@@ -23,7 +23,9 @@ const Content = () => {
         } = await instance.get("/getTeam", {params: {
             team: team,
         }});
+
         setMoney(money);
+        if (team !== 0) connection.send("check", { money: money, delta: 0});
     }
 
     const updateMoney = async (val: number) => {
@@ -41,24 +43,39 @@ const Content = () => {
         }
 
         setMoney(money);
+
+        if (team !== 0) connection.send("check", { money: money, delta: parseInt(delta)});
     };
 
     const handleUserKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
         const { key } = event;
+        console.log(key)
         if (key === "Enter") {
+            
+            // debug
+            // connection.send("check", { money: 0, delta: 0}).then(() => {
+            //     console.log('check sent')
+            // }).catch((err: any) => {
+            //     console.error(err);
+            // });
+
             setLoading(false)
             setTeam(0)
             setDelta("")
-        }
+
+        } 
     }
+
+    
 
     // Set up the serial connection
     useEffect(() => {
         // React to incoming events
         connection.on("check", function(data: number) {
             setTeam(data);
-            // console.log(data)
+            console.log(data)
         });
+
 
         window.addEventListener('keydown', handleUserKeyPress)
         return () => {
@@ -68,8 +85,6 @@ const Content = () => {
 
     useEffect(() => {
         setLoading(true);
-        // console.log(delta)
-
         if (delta !== "") {
             updateMoney(parseInt(delta));
             setDelta("");
@@ -80,13 +95,19 @@ const Content = () => {
         if (team !== 0) {
             const timer = setTimeout(() => {
                 setLoading(false);
-            }, 3000)
+            }, 500)
 
             return () => clearTimeout(timer);
         }
 
         setLoading(false);
     }, [team])
+
+    // useEffect(() => {
+    //     if (admin) {
+    //         getAllTeams();
+    //     }
+    // }, [admin])
 
     return (
         <div className='ContentWrapper'>

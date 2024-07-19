@@ -6,7 +6,7 @@ exports.initData = async (req, res) => {
   for (let i = 1; i <= 10; i++) {
     const newInfo = new Info({
       team: i.toString(),
-      money: 0,
+      money: 20,
     });
     await newInfo.save();
   }
@@ -14,6 +14,12 @@ exports.initData = async (req, res) => {
   console.log("init data success");
   res.send({ msg: "success" });
 };
+
+// exports.getAllTeams = async (req, res) => {
+//   const teams = await Info.collection.find({}).toArray();
+//   console.log("get all teams success");
+//   res.send({ msg: "success", teams: teams });
+// };
 
 
 exports.updateMoney = async (req, res) => {

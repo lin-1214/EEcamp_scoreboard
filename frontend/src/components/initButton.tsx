@@ -9,6 +9,7 @@ const InitButton = () => {
         } = await instance.post("/initData");
         
         console.log("Init data successfully!");
+        window.location.reload();
     };
 
     return (
