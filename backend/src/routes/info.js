@@ -6,7 +6,7 @@ exports.initData = async (req, res) => {
   for (let i = 1; i <= 10; i++) {
     const newInfo = new Info({
       team: i.toString(),
-      money: 20,
+      money: 70,
     });
     await newInfo.save();
   }
